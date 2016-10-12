@@ -1,6 +1,51 @@
 from nba_py import _api_scrape, _get_json
 from nba_py.constants import *
 
+class BoxscoreSummary:
+    _endpoint = 'boxscoresummaryv2'
+
+    def __init__(self,
+                 game_id,
+                 range_type=RangeType.Default,
+                 start_period=StartPeriod.Default,
+                 end_period=EndPeriod.Default,
+                 start_range=StartRange.Default,
+                 end_range=EndRange.Default):
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'GameID': game_id,
+                                      'RangeType': range_type,
+                                      'StartPeriod': start_period,
+                                      'EndPeriod': end_period,
+                                      'StartRange': start_range,
+                                      'EndRange': end_range})
+
+    def game_summary(self):
+        return _api_scrape(self.json, 0)
+
+    def team_summary(self):
+        return _api_scrape(self.json, 1)
+
+    def officials_summary(self):
+        return _api_scrape(self.json, 2)
+
+    def players_summary(self):
+        return _api_scrape(self.json, 3)
+
+    def game_logistics(self):
+        return _api_scrape(self.json, 4)
+
+    def scoring_summary(self):
+        return _api_scrape(self.json, 5)
+
+    def last_game_summary(self):
+        return _api_scrape(self.json, 6)
+
+    def series_summary(self):
+        return _api_scrape(self.json, 7)
+
+    def available_video(self):
+        return _api_scrape(self.json, 8)
+
 
 class Boxscore:
     _endpoint = 'boxscore'

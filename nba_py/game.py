@@ -47,6 +47,33 @@ class BoxscoreSummary:
         return _api_scrape(self.json, 8)
 
 
+class BoxscoreTraditional:
+    _endpoint = 'boxscoretraditionalv2'
+
+    def __init__(self,
+                 game_id,
+                 range_type=RangeType.Default,
+                 start_period=StartPeriod.Default,
+                 end_period=EndPeriod.Default,
+                 start_range=StartRange.Default,
+                 end_range=EndRange.Default):
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'GameID': game_id,
+                                      'RangeType': range_type,
+                                      'StartPeriod': start_period,
+                                      'EndPeriod': end_period,
+                                      'StartRange': start_range,
+                                      'EndRange': end_range})
+
+    def box_score(self):
+        return _api_scrape(self.json, 0)
+
+    def team_totals(self):
+        return _api_scrape(self.json, 1)
+
+    def starters_bench(self):
+        return _api_scrape(self.json, 2)
+
 class Boxscore:
     _endpoint = 'boxscore'
 
